@@ -1,4 +1,4 @@
-from pymongo import MongoClient
+from motor.motor_asyncio import AsyncIOMotorClient
 from dotenv import load_dotenv
 import os
 
@@ -10,7 +10,7 @@ MONGODB_URI = os.getenv("MONGODB_URI")
 DB_NAME = os.getenv("DB_NAME")
 
 # Crear una instancia del cliente de MongoDB
-client = MongoClient(MONGODB_URI)
+client = AsyncIOMotorClient(MONGODB_URI)
 
 # Seleccionar la base de datos
 db = client[DB_NAME]
