@@ -3,7 +3,7 @@
 from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime
-from ContactInfo import ContactInfo
+
 
 
 
@@ -11,7 +11,7 @@ class ContactInfo(BaseModel):
     name: str
     email: str
     website: Optional[str] = None
-    social_media: Optional[Dict[str, str]] = None  # Ejemplo: {"twitter": "@autor"}
+    social_media: Optional[dict[str, str]] = None  # Ejemplo: {"twitter": "@autor"}
 
 # Esquema para validar los datos de un libro
 class Book(BaseModel):
@@ -20,7 +20,7 @@ class Book(BaseModel):
     image: str
     published_date: Optional[datetime] = None
     summary: str
-    banners: Union[str, list[str]] = None 
+    banners: list[str, list[str]] = None 
     formats: Optional[dict[str, bool]] = None
     isbn: str
     my_book: bool = False
