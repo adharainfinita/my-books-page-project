@@ -1,6 +1,6 @@
 # routes/books.py
 from fastapi import APIRouter, HTTPException
-from models.book import Book
+from models.book import Book, BookUpdate
 from database import get_db
 from datetime import datetime
 from bson import ObjectId
@@ -48,7 +48,7 @@ async def get_book(book_id: str):
 
 # Cambiar datos de los libros
 @router.put("/books/{book_id}")
-async def update_book(book_id: str, book: Book):
+async def update_book(book_id: str, book: BookUpdate):
     db = get_db()
     result = await db.books.update_one(
         {"_id": str_to_objectid(book_id)}, 
