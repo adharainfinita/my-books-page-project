@@ -21,3 +21,8 @@ class Comment(BaseModel):
         super().__init__(**data)
         if self.created_at is None:
             self.created_at = datetime.now()
+
+class CommentUpdate(Comment):
+    book_id: Optional[str] = None
+    text: Optional[str] = None
+    created_at: Optional[datetime] = None

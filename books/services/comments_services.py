@@ -1,6 +1,6 @@
 from database import get_db
 from fastapi import HTTPException
-from models.comment import Comment
+from models.comment import Comment, CommentUpdate
 from utils.convert_objectId import str_to_objectid
 
 
@@ -32,7 +32,7 @@ async def find_comments_for_book(book_id: str):
         comment["_id"] = str(comment["_id"])
     return comments
 
-async def update_comment_by_id(comment_id: str, comment: Comment):
+async def update_comment_by_id(comment_id: str, comment: CommentUpdate):
     db = get_db()
     update_data = comment.model_dump(exclude_unset=True)
     result_update = await db.comments.update_one(
@@ -48,7 +48,7 @@ async def update_comment_by_id(comment_id: str, comment: Comment):
 
 async def delete_comment_by_id(comment_id:str):
     db = get_db()
-    result_delete = await db.comments.delete_one(str_to_objectid(comment_id))
+    result_delete = await db.comments.delete_one({"_id": str_to_objectid(comment_id)})
     if result_delete.deleted_count == 0:
         raise HTTPException(status_code=404, detail="Comment does not exist")
     return {"status": "success"}

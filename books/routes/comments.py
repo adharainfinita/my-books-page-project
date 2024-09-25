@@ -1,7 +1,7 @@
 # routes/comments.py
 
 from fastapi import APIRouter, HTTPException
-from models.comment import Comment
+from models.comment import Comment, CommentUpdate
 from datetime import datetime
 from bson import ObjectId
 from services.comments_services import create_a_new_comment, find_comments_for_book, update_comment_by_id, delete_comment_by_id, find_all_comments
@@ -21,8 +21,8 @@ async def get_comments(book_id: str):
    return await find_comments_for_book(book_id)
 
 @router.put("/comments/{comment_id}")
-async def put_comment(comment_id: str, comment: Comment):
-  return await  update_comment_by_id(comment_id. comment)
+async def put_comment(comment_id: str, comment: CommentUpdate):
+  return await  update_comment_by_id(comment_id, comment)
 
 @router.delete('/comments/{comment_id}')
 async def delete_comment(comment_id):
