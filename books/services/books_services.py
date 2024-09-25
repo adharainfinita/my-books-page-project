@@ -3,11 +3,12 @@ from models.book import Book, BookUpdate
 from bson import ObjectId
 from fastapi import HTTPException
 
-def str_to_objectid(id_str: str) -> ObjectId:
+def str_to_objectid(book_id: str):
     try:
-        return ObjectId(id_str)
-    except Exception:
-        raise HTTPException(status_code=400, detail="Invalid ObjectId")
+        return ObjectId(book_id)
+    except Exception as e:
+        print(f"Error converting to ObjectId: {e}")
+        return None
 
 async def get_all_books():
   db = get_db()
@@ -21,7 +22,7 @@ async def get_all_books():
  
 async def create_new_book(book: Book):
   db = get_db()
-  result = await db.books.insert_one(book.dict(exclude_unset=True))  # Aquí usamos .dict() para convertir el modelo en un diccionario
+  result = await db.books.insert_one(book.model_dump(exclude_unset=True)) 
   return {"id": str(result.inserted_id)}
 
 async def get_book_by_id(book_id:str):
@@ -34,12 +35,20 @@ async def get_book_by_id(book_id:str):
 
 async def update_book_by_id(book_id: str, book: BookUpdate):
     db = get_db()
+    update_data = book.model_dump(exclude_unset=True)
+    print(f"Updating book with ID {book_id} using data: {update_data}")
     result = await db.books.update_one(
         {"_id": str_to_objectid(book_id)}, 
-        {"$set": book.dict(exclude_unset=True)}
+        {"$set": update_data}
      )
+    
+    print(f"Matched count: {result.matched_count}")
+    
     if result.matched_count == 0:
         raise HTTPException(status_code=404, detail="Book not found")
+    if result.modified_count == 0:
+        raise HTTPException(status_code=400, detail="No changes made to the book")
+
     return {"status": "success"}
 
 async def delete_book_by_id(book_id:str):
