@@ -1,14 +1,8 @@
 from database import get_db
 from models.book import Book, BookUpdate
-from bson import ObjectId
 from fastapi import HTTPException
+from utils.convert_objectId import str_to_objectid
 
-def str_to_objectid(book_id: str):
-    try:
-        return ObjectId(book_id)
-    except Exception as e:
-        print(f"Error converting to ObjectId: {e}")
-        return None
 
 async def get_all_books():
   db = get_db()
@@ -41,8 +35,6 @@ async def update_book_by_id(book_id: str, book: BookUpdate):
         {"_id": str_to_objectid(book_id)}, 
         {"$set": update_data}
      )
-    
-    print(f"Matched count: {result.matched_count}")
     
     if result.matched_count == 0:
         raise HTTPException(status_code=404, detail="Book not found")
