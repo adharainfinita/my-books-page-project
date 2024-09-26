@@ -1,0 +1,36 @@
+{
+  "name": "users-api",
+  "version": "1.0.0",
+  "description": "an api for register and login users",
+  "main": "index.ts",
+  "scripts": {
+    "test": "jest",
+    "dev": "nodemon --exec ts-node ./index.ts",
+    "build": "rimraf ./dist && tsc",
+    "start": "npm run build && node dist/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adharainfinita/my-books-page-project.git"
+  },
+  "author": "Adhara Redruello",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/adharainfinita/my-books-page-project/issues"
+  },
+  "homepage": "https://github.com/adharainfinita/my-books-page-project#readme",
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "nodemon": "^3.1.7",
+    "ts-node": "^10.9.2",
+    "typerscript": "^0.2.3"
+  },
+  "dependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/morgan": "^1.9.9",
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0"
+  }
+}
