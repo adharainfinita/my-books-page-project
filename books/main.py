@@ -1,7 +1,6 @@
 # main.py
 from fastapi import FastAPI, UploadFile, File, HTTPException
-from routes.books import router as books_router
-from routes.comments import router as comments_router
+from routes import books_router, comments_router
 from database import get_db
 import firebase_admin
 from firebase_admin import credentials, storage

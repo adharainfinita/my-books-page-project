@@ -1,4 +1,4 @@
-""" class Book: 
-  def __init__(self, title, author):
-    self.title = title
-    self.author = author """
+from .book import Book, BookUpdate
+from .comment import Comment, CommentUpdate
+
+__all__= [Book, BookUpdate, Comment, CommentUpdate]

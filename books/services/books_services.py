@@ -1,7 +1,7 @@
 from database import get_db
 from models.book import Book, BookUpdate
 from fastapi import HTTPException
-from utils.convert_objectId import str_to_objectid
+from utils import str_to_objectid
 
 
 async def get_all_books():

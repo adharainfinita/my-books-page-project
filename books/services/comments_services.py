@@ -1,7 +1,7 @@
 from database import get_db
 from fastapi import HTTPException
 from models.comment import Comment, CommentUpdate
-from utils.convert_objectId import str_to_objectid
+from utils import str_to_objectid
 
 
 async def create_a_new_comment(comment: Comment):
