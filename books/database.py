@@ -17,7 +17,8 @@ db = client[DB_NAME]
 
 # Ejemplo de acceso a una colección llamada 'books'
 books_collection = db["books"]
-comments_collectios = db["comments"]
+comments_collection = db["comments"]
+content_collection = db["contents"]
 
 def get_db():
     """Función para obtener la conexión a la base de datos."""

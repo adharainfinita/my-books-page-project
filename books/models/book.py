@@ -1,9 +1,8 @@
 # models/book.py
-from pydantic import BaseModel, HttpUrl, EmailStr, field_validator, ConfigDict
+from pydantic import BaseModel, EmailStr, field_validator, ConfigDict
 from typing import Optional
 from datetime import datetime
-import re
-
+from models import BookContent
 
 class ContactInfo(BaseModel):
     name: str
@@ -24,9 +23,7 @@ class Book(BaseModel):
     isbn: str
     my_book: bool = False
     contact: ContactInfo
-    content: Optional[HttpUrl] = None  # Aquí puedes almacenar una ruta al archivo o el contenido en sí
-    read_by_ai: Optional[bool] = False
-    ai_format: Optional[str] = None  # Define el formato en el que la IA leerá el contenido
+    content_id: Optional[str] = "not defined yet"
 
     @field_validator('title')
     def title_word_limit(summary_value):
@@ -77,9 +74,7 @@ class BookUpdate(Book):
     my_book: Optional[bool] = None
     banners: Optional[list[str]] = None
     contact: Optional[ContactInfo] = None
-    content: Optional[HttpUrl] = None
-    read_by_ai: Optional[bool] = None
-    ai_format: Optional[str] = None
+    content_id: Optional[str] = "not defined yet"
 
     class ConfigDict:
         from_attributes = True

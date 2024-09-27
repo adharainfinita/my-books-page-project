@@ -1,15 +1,16 @@
 # main.py
-from fastapi import FastAPI, UploadFile, File, HTTPException
-from routes import books_router, comments_router
+from fastapi import FastAPI
+from routes import books_router, comments_router, book_content_router
 from database import get_db
 import firebase_admin
-from firebase_admin import credentials, storage
+from firebase_admin import credentials
 
 app = FastAPI()
  # Incluimos las rutas de los libros
 
 app.include_router(books_router, prefix="/api")
 app.include_router(comments_router, prefix="/api")
+app.include_router(book_content_router, prefix="/api")
 
 
 
@@ -30,23 +31,6 @@ db = get_db()
 print("Conexión a MongoDB exitosa:", db.name)
 
 
-@app.post('/upload')
-async def upload_file(file: UploadFile = File(...)):
-    try:
-        # Nombre del bucket de Firebase
-        bucket = storage.bucket()
 
-        # Crear un blob con el nombre del archivo
-        blob = bucket.blob(file.filename)
 
-        # Subir el archivo al bucket de Firebase
-        blob.upload_from_file(file.file)
-
-        # Hacer que el archivo sea accesible públicamente
-        blob.make_public()
-
-        # Devolver la URL pública del archivo
-        return {"url": blob.public_url}
-
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error al subir archivo: {str(e)}")
+    
