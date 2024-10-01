@@ -1,4 +1,4 @@
-from FastAPI import UploadFile, File, HTTPException
+from fastapi import UploadFile, File, HTTPException
 from firebase_admin import storage
 from models import BookContent, BookUpdate
 from services import update_book_by_id

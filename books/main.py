@@ -14,7 +14,7 @@ app.include_router(book_content_router, prefix="/api")
 
 
 
-cred = credentials.Certificate("./config/my-books-pages-proyect-firebase-adminsdk-7mv1a-10132a0524.json")
+cred = credentials.Certificate("./config/my-books-pages-proyect-firebase-admin.json")
 firebase_admin.initialize_app(cred, {
     "storageBucket": "my-books-pages-proyect.appspot.com"
 })

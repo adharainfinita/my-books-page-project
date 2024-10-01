@@ -1,8 +1,7 @@
 # models/book.py
-from pydantic import BaseModel, EmailStr, field_validator, ConfigDict
+from pydantic import BaseModel, EmailStr, field_validator, ConfigDict, HttpUrl
 from typing import Optional
 from datetime import datetime
-from models import BookContent
 
 class ContactInfo(BaseModel):
     name: str
@@ -78,3 +77,7 @@ class BookUpdate(Book):
 
     class ConfigDict:
         from_attributes = True
+
+def get_book_content_model():
+    from models import BookContent
+    return BookContent

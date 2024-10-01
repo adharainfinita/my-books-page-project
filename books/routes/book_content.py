@@ -1,5 +1,5 @@
 # routes/book_content.py
-from FastAPI import APIRouter, File, UploadFile
+from fastapi import APIRouter, File, UploadFile
 from models import BookContent
 from services import upload_file_and_update_book
 
