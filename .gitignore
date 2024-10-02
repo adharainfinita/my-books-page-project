@@ -3,10 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-/books/config/my-books-pages-proyect-firebase-adminsdk-7mv1a-10132a0524.json
+/books/config/my-books-pages-proyect-firebase-admin.json
 # C extensions
 *.so
-
+node_modules
 # Distribution / packaging
 .Python
 build/
