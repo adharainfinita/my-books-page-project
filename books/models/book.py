@@ -1,7 +1,8 @@
 # models/book.py
-from pydantic import BaseModel, EmailStr, field_validator, ConfigDict, HttpUrl
+from pydantic import BaseModel, EmailStr, field_validator, ConfigDict
 from typing import Optional
 from datetime import datetime
+import re
 
 class ContactInfo(BaseModel):
     name: str
@@ -14,7 +15,7 @@ class ContactInfo(BaseModel):
 class Book(BaseModel):
     title: str
     author: str
-    image: HttpUrl
+    image: str
     published_date: Optional[datetime] = None
     summary: str
     banners:Optional[list[str]] = None 
@@ -41,10 +42,11 @@ class Book(BaseModel):
         author_value = ' '.join([word.capitalize() for word in author_value.split()])
         return author_value
 
+
     @field_validator('image')
-    def image_validator(image_value):
-        if not re.search(r'\\.(jpg|jpeg|png|webp|tiff|bmp|gif)$', image_value, re.IGNORECASE):
-            raise ValueError('Invalid image format. Allowed formats: jpg|jpeg|png|webp|tiff|bmp|gif')
+    def image_validator(cls, image_value:str) -> str:
+        if not re.search(r'^htpps?://.*\.(jpg|jpeg|png|webp|tiff|bmp|gif)(\?.*)?$', image_value, re.IGNORECASE):
+            raise ValueError('Invalid image format. Allowed formats: jpg, jpeg, png, webp, tiff, bmp, gif.')
         return image_value
 
 
